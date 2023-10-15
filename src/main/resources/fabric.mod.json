@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "tasmod",
+  "version": "${version}",
+  "name": "${name}",
+  "description": "Create Tool Assisted Speedruns in Minecraft and play them back in real time.",
+  "authors": [
+    "ScribbleTAS",
+    "PancakeTAS"
+  ],
+  "contributors": [
+    "tr7zw", "cittyinthecloud"
+  ],
+  "contact": {
+    "homepage": "https://minecrafttas.com",
+    "sources": "https://github.com/MinecraftTAS/TASmod"
+  },
+  "license": "GPLv3",
+  "icon": "assets/tasmod/textures/potion.png",
+  "environment": "*",
+  "accessWidener": "tasmod.accesswidener",
+  "entrypoints": {
+    "main": [
+      "com.minecrafttas.tasmod.TASmod"
+    ],
+    "client": [
+      "com.minecrafttas.tasmod.client.ClientTASmod"
+    ]
+  },
+  "mixins": [
+    "tasmod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.23",
+    "minecraft": "~1.16.1",
+    "java": ">=21"
+  }
+}

@@ -1,0 +1,67 @@
+// configure plugins
+plugins {
+    // fabric-loom plugin
+    id 'fabric-loom' version '1.4-SNAPSHOT'
+    // lombok plugin
+    id 'io.freefair.lombok' version '8.4'
+}
+
+// set basic project information
+base {
+    group = project.mod_group
+    version = project.mod_version
+    archivesName = project.mod_name
+}
+
+// configure loom
+loom {
+    accessWidenerPath = file('src/main/resources/tasmod.accesswidener')
+    log4jConfigs.from(file('src/main/resources/log4j.xml'))
+}
+
+// add dependencies
+dependencies {
+    // add fabric
+    minecraft 'com.mojang:minecraft:1.16.1'
+    mappings loom.officialMojangMappings()
+    modImplementation 'net.fabricmc:fabric-loader:0.14.23'
+
+    // add testing
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+}
+
+// process fabric.mod.json
+processResources {
+    inputs.property "version", project.mod_version
+
+    // replace version and name in fabric.mod.json
+    filesMatching("fabric.mod.json") {
+        expand "version": project.mod_version, "name": project.mod_name
+    }
+}
+
+// configure java
+java {
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_21
+}
+
+// configure source sets
+sourceSets.main.java.srcDirs += ['src/common/java']
+sourceSets.main.java.srcDirs += ['src/external/java']
+
+// configure output jar
+jar {
+    // rename LICENSE.md to LICENSE_TASmod
+    from ("LICENSE.md") {
+        rename { "${it}_${project.base.archivesName.get()}"}
+    }
+}
+
+// configure test
+tasks.named('test', Test) {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}

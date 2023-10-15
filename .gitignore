@@ -1,23 +1,17 @@
-# eclipse
-bin
-*.launch
-.settings
-.metadata
-.classpath
-.project
+# Gradle files
+.gradle/
+build/
 
-# idea
-out
-*.ipr
-*.iws
-*.iml
+# IntelliJ files
+out/
 .idea
 
-# gradle
-build
-.gradle
+# Eclipse files
+.metadata/
+bin/
+.classpath
+.project
+.factorypath
 
-# other
-eclipse
-run/
-logs/
+# Minecraft files
+run
